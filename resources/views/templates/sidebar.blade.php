@@ -24,7 +24,7 @@
                                         <span class="nk-menu-icon"><em class="icon ni ni-dashlite"></em></span>
                                         <span class="nk-menu-text">Pengadu</span>
                                     </a>
-                                    <a href="{{route('')}}" class="nk-menu-link">
+                                    <a href="" class="nk-menu-link">
                                     <span class="nk-menu-icon"><em class="icon ni ni-dashlite"></em></span>
                                     <span class="nk-menu-text">Responder</span>
                                     </a>
