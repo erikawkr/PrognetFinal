@@ -1,0 +1,19 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class MasterPengadu extends Model
+{
+    use HasFactory;
+
+    protected $table = 'm_help_pengadu';
+    protected $fillable = [
+        'nama',
+        'alamat',
+        'telepon',
+        'email'
+    ];
+}
