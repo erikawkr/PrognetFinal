@@ -20,7 +20,7 @@ class TrxAduanRespon extends Model
     ];
     
     public function aduan(){
-        return $this->belongsTo(MasterPengadu::class, 'aduan_id', 'id');
+        return $this->belongsTo(TrxAduan::class, 'aduan_id', 'id');
     }
 
     public function pengadu(){
@@ -28,6 +28,6 @@ class TrxAduanRespon extends Model
     }
 
     public function pegawai(){
-        return $this->belongsTo(JenisAduan::class, 'pegawai_id', 'id');
+        return $this->belongsTo(MasterRespon::class, 'pegawai_id', 'id');
     }
 }

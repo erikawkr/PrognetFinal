@@ -9,11 +9,19 @@ class MasterPengadu extends Model
 {
     use HasFactory;
 
-    protected $table = 'help_pengadus';
+    protected $table = 'm_help_pengadu';
     protected $fillable = [
         'nama',
         'alamat',
         'telepon',
         'email'
     ];
+
+    public function aduan_respon(){
+        return $this->hasMany(TrxAduanRespon::class, 'pengadu_id');
+    }
+
+    public function aduan(){
+        return $this->hasMany(TrxAduan::class, 'pengadu_id');
+    }
 }
