@@ -25,4 +25,8 @@ class TrxAduan extends Model
     public function jenis_aduan(){
         return $this->belongsTo(JenisAduan::class, 'jenis_aduan_id', 'id');
     }
+
+    public function aduan_respon(){
+        return $this->hasMany(TrxAduanRespon::class, 'aduan_id');
+    }
 }

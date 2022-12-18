@@ -16,4 +16,8 @@ class MasterRespon extends Model
         'spesialisasi_id',
         'jeniskelamin_id',
     ];
+
+    public function aduan_respon(){
+        return $this->hasMany(TrxAduanRespon::class, 'pegawai_id');
+    }
 }
