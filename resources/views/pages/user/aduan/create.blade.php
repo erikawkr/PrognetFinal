@@ -26,7 +26,7 @@
         <div class="col-md-12" align="center">
             &nbsp;
         </div>
-        <div class="d-flex align-items-center">
+        <div class="d-flex align-items-csenter">
           <div class="col-md-12" align="center">
             <div class="spinner-border ms-auto" role="status" aria-hidden="true"></div>
           </div>
@@ -60,7 +60,8 @@
                     {{ Session::get('success') }}
                 </div>
                 @endif
-                <form action="{{route('trx_aduan.store')}}" method="POST">
+                <form action="{{route('trx_aduan.store')}}" method="POST" enctype="multipart/form-data">
+                
                     @csrf
                     <div class="form-body">
                         <div class="form-group">
@@ -74,9 +75,13 @@
                                 @enderror
                         </div>
                         <div class="form-group">
-                            <label for="inputAddress">Jenis Aduan ID</label>
-                            <input type="text" class="form-control @error('jenis_aduan_id') is invalid @enderror" 
-                            name="jenis_aduan_id"  id="inputAddress" placeholder="Masukkan Jenis Aduan ID" value="{{ old('jenis_aduan_id') }}">
+                            <label for="inputAddress">Jenis Aduan</label>
+                            <select class="custom-select" name="jenis_aduan_id" aria-label="Default select example">
+                                <option value="" selected>Open this select menu</option>
+                                @foreach ($jenis_aduans as $item)     
+                                <option value="{{ $item->id }}">{{ $item->jenis_aduan}}</option>
+                                @endforeach
+                            </select>
                             @error('jenis_aduan_id')
                                     <div class="invalid-feedback" style="display:block;">
                                     {{ $message }}
@@ -85,8 +90,7 @@
                         </div>
                         <div class="form-group">
                             <label>Aduan</label>
-                            <input type="text" name="aduan" class="form-control @error('aduan') is invalid @enderror"
-                            placeholder="Masukkan Aduan Anda" value="{{ old('aduan') }}">
+                            <textarea id="summernote" name="aduan"></textarea>
                             @error('aduan')
                                 <div class="invalid-feedback" style="display:block;">
                                     {{  $message }}
@@ -95,7 +99,7 @@
                         </div>
                         <div class="form-group">
                             <label for="exampleFormControlFile1">Aduan Foto</label>
-                            <input type="file" class="form-control-file" id="exampleFormControlFile1">
+                            <input type="file" class="form-control-file" id="gambar" name="gambar" required>
                           </div>
                         <button type="submit" class="btn btn-primary">Tambah</button>
                     </div>
@@ -106,3 +110,15 @@
 <!-- </div> -->
 
 @endsection
+
+
+@push('script')
+<script>
+    $(document).ready(function() {
+        $("#myeditor").summernote({
+            placeholder: "Write your content here",
+            height: 200,
+        });
+    });
+    </script>
+@endpush
