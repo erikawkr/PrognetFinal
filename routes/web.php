@@ -3,9 +3,11 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\Master\PengaduController;
 use App\Http\Controllers\Admin\Master\ResponderController;
+use App\Http\Controllers\Admin\Master\JenisAduanController;
 use App\Http\Controllers\Admin\TrxAduanController;
 use App\Http\Controllers\Admin\TrxAduanResponController;
 use App\Http\Controllers\Admin\GenerateAduanController;
+
 
 
 /*
@@ -61,3 +63,7 @@ Route::post('admin/trx_generate/store',[GenerateAduanController::class,'store'])
 
 
 
+Route::post('/admin/master_jenis_aduan/grid',[JenisAduanController::class,'grid'])->name('master_jenis_aduan.grid');
+Route::get('/admin/master_jenis_aduan/index',[JenisAduanController::class,'index'])->name('master_jenis_aduan.index');
+Route::get('/admin/master_jenis_aduan/{id}/edit',[JenisAduanController::class,'edit'])->name('master_jenis_aduan.edit');
+Route::delete('/admin/master_jenis_aduan/{id}',[JenisAduanController::class,'destroy'])->name('master_jenis_aduan.delete');

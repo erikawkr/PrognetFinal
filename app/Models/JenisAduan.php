@@ -9,5 +9,9 @@ class JenisAduan extends Model
 {
     use HasFactory;
     protected $table = 'm_jenis_aduan';
-
+    protected $fillable = [
+        'jenis_aduan',
+        'created_at',
+        'updated_at',
+    ];
 }
