@@ -54,6 +54,7 @@ Route::delete('/admin/trx_aduan/{id}',[TrxAduanController::class,'destroy'])->na
 
 Route::post('/admin/trx_aduan_respon/grid',[TrxAduanResponController::class,'grid'])->name('trx_aduan_respon.grid');
 Route::get('/admin/trx_aduan_respon/index',[TrxAduanResponController::class,'index'])->name('trx_aduan_respon.index');
+Route::get('/admin/trx_aduan/{id}/show',[TrxAduanController::class,'show'])->name('trx_aduan.show');
 // Route::get('/admin/trx_aduan_respon/{id}/edit',[TrxAduanResponController::class,'edit'])->name('trx_aduan_respon.edit');
 // Route::delete('/admin/trx_aduan_respon/{id}',[TrxAduanResponController::class,'destroy'])->name('trx_aduan_respon.delete');
 
@@ -65,5 +66,4 @@ Route::post('admin/trx_generate/store',[GenerateAduanController::class,'store'])
 
 Route::post('/admin/master_jenis_aduan/grid',[JenisAduanController::class,'grid'])->name('master_jenis_aduan.grid');
 Route::get('/admin/master_jenis_aduan/index',[JenisAduanController::class,'index'])->name('master_jenis_aduan.index');
-Route::get('/admin/master_jenis_aduan/{id}/edit',[JenisAduanController::class,'edit'])->name('master_jenis_aduan.edit');
 Route::delete('/admin/master_jenis_aduan/{id}',[JenisAduanController::class,'destroy'])->name('master_jenis_aduan.delete');

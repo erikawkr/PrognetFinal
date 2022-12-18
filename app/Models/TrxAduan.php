@@ -15,6 +15,7 @@ class TrxAduan extends Model
         'jenis_aduan_id',
         'tanggal',
         'aduan',
+        'aduan_foto',
         'status_close'
     ];
 

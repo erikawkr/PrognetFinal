@@ -39,3 +39,6 @@
 <link href="{{asset('vendor/datepicker/css/bootstrap-datepicker.css')}}" rel="stylesheet">
 
 <link href="{{asset('vendor/bmd/styles/styles.css')}}" rel="stylesheet">
+
+{{-- summernote --}}
+

@@ -17,7 +17,7 @@
             <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalDefault">Modal Default</button> -->
             <!-- <a href="#" class="btn btn-sm btn-success" data-toggle="modal" data-target="#modalDefault"><em class="icon ti-file"></em> <span>Filter Data</span></a> -->
             <!-- <a href="javascript:void(0)" class="btn btn-sm btn-success" onclick="filtershow()"><em class="icon ti-file"></em> <span>Filter Data</span></a> -->
-            <a href="{{ route('master_pengaduan.index') }}" class="btn btn-sm btn-primary" onclick="buttondisable(this)"><em class="icon fas fa-arrow-left"></em> <span>Kembali</span></a>
+            <a href="{{ route('trx_aduan.index') }}" class="btn btn-sm btn-primary" onclick="buttondisable(this)"><em class="icon fas fa-arrow-left"></em> <span>Kembali</span></a>
         </div>
     </div>
 </div>
@@ -26,7 +26,7 @@
         <div class="col-md-12" align="center">
             &nbsp;
         </div>
-        <div class="d-flex align-items-center">
+        <div class="d-flex align-items-csenter">
           <div class="col-md-12" align="center">
             <div class="spinner-border ms-auto" role="status" aria-hidden="true"></div>
           </div>
@@ -60,50 +60,76 @@
                     {{ Session::get('success') }}
                 </div>
                 @endif
-                <form action="{{route('trx_generate.store')}}" method="POST">
+                <form action="{{route('trx_aduan.store')}}" method="POST" enctype="multipart/form-data">
+                
                     @csrf
                     <div class="form-body">
                         <div class="form-group">
-                            <label>Nama</label>
-                            <input type="text" name="nama" class="form-control @error('fullname') is invalid @enderror"
-                                placeholder="Masukkan nama" value="{{ old('fullname') }}" >
-                                @error('fullname')
+                            <label>Pengadu_ID</label>
+                            <input type="text" name="pengadu_id" class="form-control @error('pengadu_id') is invalid @enderror"
+                                placeholder="Masukkan pengadu_id" value="{{ $record->pengadu_id}}" disabled>
+                                @error('pengadu_id')
                                     <div class="invalid-feedback" style="display:block;">
                                         {{  $message }}
                                     </div>
                                 @enderror
                         </div>
-                        <div class="form-group">
-                            <label for="inputAddress">Address</label>
-                            <input type="text" class="form-control @error('alamat') is invalid @enderror" 
-                            name="alamat"  id="inputAddress" placeholder="Masukkan Alamat" value="{{ old('alamat') }}">
-                            @error('alamat')
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label>Nama Pengadu</label>
+                                    <input type="text" name="pengadu_id" class="form-control @error('pengadu_id') is invalid @enderror"
+                                        placeholder="Masukkan pengadu_id" value="{{ $record->pengadu->nama}}" disabled>
+                                        @error('pengadu_id')
+                                            <div class="invalid-feedback" style="display:block;">
+                                                {{  $message }}
+                                            </div>
+                                        @enderror
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label>Email Pengadu</label>
+                                    <input type="text" name="pengadu_id" class="form-control @error('pengadu_id') is invalid @enderror"
+                                        placeholder="Masukkan pengadu_id" value="{{ $record->pengadu->email}}" disabled>
+                                        @error('pengadu_id')
+                                            <div class="invalid-feedback" style="display:block;">
+                                                {{  $message }}
+                                            </div>
+                                        @enderror
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group mt-3">
+                            <label for="inputAddress">Jenis Aduan</label>
+                            <select class="custom-select" name="jenis_aduan_id" aria-label="Default select example" disabled>
+                                <option value="" selected>Open this select menu</option>
+                                @foreach ($jenis_aduans as $item)     
+                                <option value="{{ $item->id }}"  @if($item->id == $record->jenis_aduan_id) selected @endif>{{ $item->jenis_aduan}}</option>
+                                @endforeach
+                            </select>
+                            @error('jenis_aduan_id')
                                     <div class="invalid-feedback" style="display:block;">
                                     {{ $message }}
                                     </div>
                             @enderror
                         </div>
                         <div class="form-group">
-                            <label>NO.Telp</label>
-                            <input type="text" name="telepon" class="form-control @error('telepon') is invalid @enderror"
-                            placeholder="Masukkan No.Telp" value="{{ old('telepon') }}">
-                            @error('telepon')
+                            <label>Aduan</label>
+                            <textarea id="summernote-disabled" name="aduan" disabled >{{ $record->aduan }}</textarea>
+                            @error('aduan')
                                 <div class="invalid-feedback" style="display:block;">
                                     {{  $message }}
                                 </div>
                             @enderror
                         </div>
-                        <div class="form-group">
-                            <label for="exampleInputEmail1">Email </label>
-                            <input type="email" class="form-control" name="email" aria-describedby="emailHelp" 
-                            placeholder="Masukkan email" value="{{ old('email') }}">
-                            @error('email')
-                                    <div class="invalid-feedback" style="display:block;">
-                                        {{  $message }}
-                                    </div>
-                                @enderror
-                        </div>
-                        <button type="submit" class="btn btn-primary">Tambah</button>
+                        <div class="form-group row">
+                            <label class="col-12" for="exampleFormControlFile1">Aduan Foto</label>
+                            <div class="col-12">
+                                <img src="asset/aduan/{{ $record->aduan_foto }}" width='500px' height='auto'>
+                            </div>
+                          </div>
+                        {{-- <button type="submit" class="btn btn-primary">Tambah</button> --}}
                     </div>
                 </form>
             </div>
@@ -113,3 +139,7 @@
 
 @endsection
 
+
+@push('script')
+
+@endpush
