@@ -17,20 +17,20 @@
                         <div class="nk-sidebar-menu" data-simplebar>
                             <ul class="nk-menu">
                                 <li class="nk-menu-heading">
-                                    <h6 class="overline-title text-primary-alt">Master Pengadu</h6>
+                                    <h6 class="overline-title text-primary-alt">Master</h6>
                                 </li><!-- .nk-menu-item -->
                                 <li class="nk-menu-item">
                                     <a href="{{route('master_pengaduan.index')}}" class="nk-menu-link">
                                         <span class="nk-menu-icon"><em class="icon ni ni-dashlite"></em></span>
                                         <span class="nk-menu-text">Pengadu</span>
                                     </a>
-                                    <a href="" class="nk-menu-link">
+                                    <a href="{{route('master_respon.index')}}" class="nk-menu-link">
                                     <span class="nk-menu-icon"><em class="icon ni ni-dashlite"></em></span>
                                     <span class="nk-menu-text">Responder</span>
                                     </a>
                                 </li><!-- .nk-menu-item -->
                                 <li class="nk-menu-heading">
-                                    <h6 class="overline-title text-primary-alt">Transaksi Aduan</h6>
+                                    <h6 class="overline-title text-primary-alt">Transaksi Admin</h6>
                                 </li><!-- .nk-menu-item -->
                                 <li class="nk-menu-item">
                                     <a href="{{route('trx_aduan.index')}}" class="nk-menu-link">
@@ -41,6 +41,15 @@
                                     <a href="{{route('trx_aduan_respon.index')}}" class="nk-menu-link">
                                         <span class="nk-menu-icon"><em class="icon ni ni-building"></em></span>
                                         <span class="nk-menu-text">Aduan Respon</span><!-- <span class="nk-menu-badge">HOT</span> -->
+                                    </a>
+                                </li><!-- .nk-menu-item -->
+                                <li class="nk-menu-heading">
+                                    <h6 class="overline-title text-primary-alt">Transaksi User</h6>
+                                </li><!-- .nk-menu-item -->
+                                <li class="nk-menu-item">
+                                    <a href="{{route('trx_generate.create')}}" class="nk-menu-link">
+                                        <span class="nk-menu-icon"><em class="icon ni ni-building"></em></span>
+                                        <span class="nk-menu-text">Generate Aduan</span><!-- <span class="nk-menu-badge">HOT</span> -->
                                     </a>
                                 </li><!-- .nk-menu-item -->
                                 <li class="nk-menu-heading">

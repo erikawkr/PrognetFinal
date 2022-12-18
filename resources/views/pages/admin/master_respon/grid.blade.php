@@ -10,9 +10,6 @@
         <h4 class="card-title text-primary"><i class='{{$icon}}' data-toggle='tooltip' data-placement='bottom' title='Data {{$subtitle}}'></i>  {{strtoupper("Data ".$subtitle)}}</h4>
     </div>
     <div class="nk-fmg-actions">
-        <div class="btn-group">
-            <a href="{{ route('trx_aduan.create') }}" class="btn btn-sm btn-primary" onclick="buttondisable(this)"><em class="icon fas fa-plus"></em> <span>Add Data</span></a>
-        </div>
     </div>
 </div>
 <div class="row gy-3 d-none" id="loaderspin">
@@ -60,13 +57,11 @@
                     <table id="{{$table_id}}" class="small-table table " style="width:100%">
                         <thead style="color:#526484; font-size:11px;" class="thead-light">
                             <th width="1%">No.</th>
-                            <th width="10%">Nomor Pengaduan</th>
-                            <th width="10%">Jenis Aduan</th>
-                            <th width="10%">tanggal</th>
-                            <th width="10%">Aduan</th>
-                            <th width="10%">aduan_foto</th>
-                            <th width="5%">status</th>
-                            <th width="10%">Aksi</th>
+                            <th width="10%">kode</th>
+                            <th width="10%">no_induk</th>
+                            <th width="10%">nama</th>
+                            <th width="10%">spesialisasi_id</th>
+                            <th width="10%">jeniskelamin_id</th>
                         </thead>
                         <tbody></tbody>
                     </table>
@@ -88,52 +83,44 @@ $(document).ready(function() {
         serverSide: true,
         dom: '<"row justify-between g-2 "<"col-7 col-sm-4 text-left"f><"col-5 col-sm-8 text-right"<"datatable-filter"<"d-flex justify-content-end g-2" l>>>><" my-3"t><"row align-items-center"<"col-5 col-sm-12 col-md-6 text-left text-md-left"i><"col-5 col-sm-12 col-md-6 text-md-right"<"d-flex justify-content-end "p>>>',
         ajax: {
-            url: '{{ route("trx_aduan.grid") }}',
+            url: '{{ route("master_respon.grid") }}',
             type:"POST",
             data: function(params) {
                 params._token = "{{ csrf_token() }}";
             }
         },
         columns: [
-            { data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false, searchable: false },  
+            { data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false, searchable: false },         
             {
-                data: 'pengadu_id',
-                name: 'pengadu_id',
-                orderable: true,
-                searchable: true,
-                class: 'text-left'
-            },    
-            {
-                data: 'jenis_aduan.jenis_aduan',
-                name: 'jenis_aduan.jenis_aduan',
-                orderable: true,
-                searchable: true,
-                class: 'text-left'
-            },   
-            {
-                data: 'tanggal',
-                name: 'tanggal',
+                data: 'kode',
+                name: 'kode',
                 orderable: true,
                 searchable: true,
                 class: 'text-left'
             },
             {
-                data: 'aduan',
-                name: 'aduan',
+                data: 'no_induk',
+                name: 'no_induk',
                 orderable: true,
                 searchable: true,
                 class: 'text-left'
             },
             {
-                data: 'aduan_foto',
-                name: 'aduan_foto',
+                data: 'nama',
+                name: 'nama',
+                orderable: true,
+                searchable: true,
+                class: 'text-left'
+            },
+            {data: 'spesialisasi_id',
+                name: 'spesialisasi_id',
                 orderable: true,
                 searchable: true,
                 class: 'text-left'
             },
             {
-                data: 'status_close',
-                name: 'status_close',
+                data: 'jeniskelamin_id',
+                name: 'jeniskelamin_id',
                 orderable: true,
                 searchable: true,
                 class: 'text-left'
@@ -151,6 +138,50 @@ $(document).ready(function() {
     $('.dataTables_filter').html('<div><div class="input-group"><div class="input-group-prepend"><span class="input-group-text" id="basic-addon1"><em class="ti ti-search"></em></span></div><input type="search" class="form-control form-control-sm" placeholder="Type in to Search" aria-controls="tbtariflayanan"></div></div>');
 });
 
+
+function deleteData(id,name,elm){
+    buttonsmdisable(elm);
+    CustomSwal.fire({
+        icon:'question',
+        text: 'Hapus Data '+name+' ?',
+        showCancelButton: true,
+        confirmButtonText: 'Hapus',
+        cancelButtonText: 'Batal',
+    }).then((result) => {
+        /* Read more about isConfirmed, isDenied below */
+        if (result.isConfirmed) {
+            $.ajax({
+                url:"{{url('/admin/master_respon')}}/"+id,
+                data:{
+                    _method:"DELETE",
+                    _token:"{{csrf_token()}}"
+                },
+                type:"POST",
+                dataType:"JSON",
+                beforeSend:function(){
+                    block("#{{$table_id}}");
+                },
+                success:function(data){
+                    if(data.success == 1){
+                        CustomSwal.fire('Sukses', data.msg, 'success');
+                    }else{
+                        CustomSwal.fire('Gagal', data.msg, 'error');
+                    }
+                    unblock("#{{$table_id}}");
+                    RefreshTable('{{$table_id}}',0);
+                },
+                error:function(error){
+                    CustomSwal.fire('Gagal', 'terjadi kesalahan sistem', 'error');
+                    console.log(error.XMLHttpRequest);
+                    unblock("#{{$table_id}}");
+                    RefreshTable('{{$table_id}}',0);
+                }
+            });
+        }else{
+            RefreshTable('{{$table_id}}',0);
+        }
+    });
+}
 
 </script>
 @endpush

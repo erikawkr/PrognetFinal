@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\JenisAduan;
 
 class TrxAduan extends Model
 {
@@ -16,4 +17,12 @@ class TrxAduan extends Model
         'aduan',
         'status_close'
     ];
+
+    public function pengadu(){
+        return $this->belongsTo(MasterPengadu::class, 'pengadu_id', 'id');
+    }
+
+    public function jenis_aduan(){
+        return $this->belongsTo(JenisAduan::class, 'jenis_aduan_id', 'id');
+    }
 }

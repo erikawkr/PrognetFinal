@@ -19,7 +19,7 @@
                     </div>
                     <div class="nk-news-text">
                         <!-- <p>Do you know the latest update of 2022? <span> A overview of our is now available on YouTube</span></p> -->
-                        <p>Sistem Informasi Manajemen <span>CRUD<span></p>
+                        <p>Sistem Informasi Manajemen<span>(Help)<span></p>
                         <em class="icon ni ni-external"></em>
                     </div>
                 </a>

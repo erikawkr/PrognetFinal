@@ -57,9 +57,9 @@
                     <table id="{{$table_id}}" class="small-table table " style="width:100%">
                         <thead style="color:#526484; font-size:11px;" class="thead-light">
                             <th width="1%">No.</th>
-                            <th width="10%">Aduan_ID</th>
-                            <th width="10%">Pengadu_ID</th>
-                            <th width="10%">Pegawai_ID</th>
+                            <th width="10%">aduan_Id</th>
+                            <th width="10%">pengadu_id</th>
+                            <th width="10%">pegawai_id</th>
                             <th width="10%">Tanggal</th>
                             <th width="10%">Respon</th>
                             <th width="10%">Respon_Foto</th>
@@ -95,29 +95,27 @@ $(document).ready(function() {
             {
                 data: 'aduan_id',
                 name: 'aduan_id',
-                orderable: true,
-                searchable: true,
+                orderable: false,
+                searchable: false,
                 class: 'text-left'
             },
             {
                 data: 'pengadu_id',
-                name: 'alamat',
-                orderable: true,
-                searchable: true,
+                name: 'pengadu_id',
+                orderable: false,
+                searchable: false,
                 class: 'text-left'
-            },
-            {
+            },{
                 data: 'pegawai_id',
                 name: 'pegawai_id',
-                orderable: true,
-                searchable: true,
+                orderable: false,
+                searchable: false,
                 class: 'text-left'
-            },
-            {
+            },{
                 data: 'tanggal',
                 name: 'tanggal',
-                orderable: true,
-                searchable: true,
+                orderable: false,
+                searchable: false,
                 class: 'text-left'
             },
             {
@@ -140,50 +138,6 @@ $(document).ready(function() {
     
     $('.dataTables_filter').html('<div><div class="input-group"><div class="input-group-prepend"><span class="input-group-text" id="basic-addon1"><em class="ti ti-search"></em></span></div><input type="search" class="form-control form-control-sm" placeholder="Type in to Search" aria-controls="tbtariflayanan"></div></div>');
 });
-
-function deleteData(id,name,elm){
-    buttonsmdisable(elm);
-    CustomSwal.fire({
-        icon:'question',
-        text: 'Hapus Data '+name+' ?',
-        showCancelButton: true,
-        confirmButtonText: 'Hapus',
-        cancelButtonText: 'Batal',
-    }).then((result) => {
-        /* Read more about isConfirmed, isDenied below */
-        if (result.isConfirmed) {
-            $.ajax({
-                url:"{{url('/admin/trx_aduan_respon')}}/"+id,
-                data:{
-                    _method:"DELETE",
-                    _token:"{{csrf_token()}}"
-                },
-                type:"POST",
-                dataType:"JSON",
-                beforeSend:function(){
-                    block("#{{$table_id}}");
-                },
-                success:function(data){
-                    if(data.success == 1){
-                        CustomSwal.fire('Sukses', data.msg, 'success');
-                    }else{
-                        CustomSwal.fire('Gagal', data.msg, 'error');
-                    }
-                    unblock("#{{$table_id}}");
-                    RefreshTable('{{$table_id}}',0);
-                },
-                error:function(error){
-                    CustomSwal.fire('Gagal', 'terjadi kesalahan sistem', 'error');
-                    console.log(error.XMLHttpRequest);
-                    unblock("#{{$table_id}}");
-                    RefreshTable('{{$table_id}}',0);
-                }
-            });
-        }else{
-            RefreshTable('{{$table_id}}',0);
-        }
-    });
-}
 
 </script>
 @endpush
