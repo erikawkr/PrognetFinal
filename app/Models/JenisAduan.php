@@ -13,4 +13,9 @@ class JenisAduan extends Model
     public function aduan_respon(){
         return $this->hasMany(TrxAduan::class, 'jenis_aduan_id');
     }
+    protected $fillable = [
+        'jenis_aduan',
+        'created_at',
+        'updated_at',
+    ];
 }

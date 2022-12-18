@@ -28,6 +28,11 @@
                                     <span class="nk-menu-icon"><em class="icon ni ni-dashlite"></em></span>
                                     <span class="nk-menu-text">Responder</span>
                                     </a>
+                                    </a>
+                                    <a href="{{route('master_jenis_aduan.index')}}" class="nk-menu-link">
+                                    <span class="nk-menu-icon"><em class="icon ni ni-dashlite"></em></span>
+                                    <span class="nk-menu-text">Jenis Aduan</span>
+                                    </a>
                                 </li><!-- .nk-menu-item -->
                                 <li class="nk-menu-heading">
                                     <h6 class="overline-title text-primary-alt">Transaksi Admin</h6>
