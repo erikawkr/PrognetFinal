@@ -58,10 +58,11 @@
                         <thead style="color:#526484; font-size:11px;" class="thead-light">
                             <th width="1%">No.</th>
                             <th width="10%">kode</th>
-                            <th width="10%">no_induk</th>
+                            {{-- <th width="10%">no_induk</th> --}}
                             <th width="10%">nama</th>
-                            <th width="10%">spesialisasi_id</th>
-                            <th width="10%">jeniskelamin_id</th>
+                            <th width="10%">spesialisasi</th>
+                            <th width="10%">jenis_profesi</th>
+                            <th width="10%">action</th>
                         </thead>
                         <tbody></tbody>
                     </table>
@@ -99,28 +100,22 @@ $(document).ready(function() {
                 class: 'text-left'
             },
             {
-                data: 'no_induk',
-                name: 'no_induk',
-                orderable: true,
-                searchable: true,
-                class: 'text-left'
-            },
-            {
                 data: 'nama',
                 name: 'nama',
                 orderable: true,
                 searchable: true,
                 class: 'text-left'
             },
-            {data: 'spesialisasi_id',
+            {
+                data: 'spesialisasi_id',
                 name: 'spesialisasi_id',
                 orderable: true,
                 searchable: true,
                 class: 'text-left'
             },
             {
-                data: 'jeniskelamin_id',
-                name: 'jeniskelamin_id',
+                data: 'jenis_profesi_id',
+                name: 'jenis_profesi_id',
                 orderable: true,
                 searchable: true,
                 class: 'text-left'

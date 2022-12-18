@@ -19,10 +19,22 @@ class ResponderController extends Controller
     }
 
     public function grid(Request $request){
-        $data = MasterRespon::all();
+        $data = MasterRespon::with('spesialisasi')->get();
         $datatables = DataTables::of($data);
         return $datatables
                 ->addIndexColumn()
+                ->addColumn('spesialisasi_id', function($data){
+                    if(isset($data->spesialisasi)){
+                        return $data->spesialisasi->nama;
+                    }
+                    return '';
+                })
+                 ->addColumn('jenis_profesi_id', function($data){
+                    if(isset($data->jenis_profesi)){
+                        return $data->jenis_profesi->nama_profesi;
+                    }
+                    return '';
+                 })
                 ->addColumn('aksi', function($data){
                     $aksi = "";
                     $aksi .= "<a title='Edit Data' href='/admin/master_respon/".$data->id."/edit' class='btn btn-md btn-primary' data-toggle='tooltip' data-placement='bottom' onclick='buttonsmdisable(this)'><i class='ti-pencil' ></i></a>";
