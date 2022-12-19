@@ -32,5 +32,20 @@ class JenisAduanController extends Controller
                 ->rawColumns(['aksi'])
                 ->make(true);
     }
-
+    public function create(){
+        $icon = 'ni ni-dashlite';
+        $subtitle = 'Tambah Data Jenis Aduan';
+        return view('pages.admin.master_jenis_aduan.create',compact('subtitle','icon'));
+    }
+    public function store(Request $request){
+        $validated = $request->validate([
+            'jenis_aduan' => ['required',],
+        ]);
+        $data = $request->all();
+        $jenisAdu = new JenisAduan;
+        $jenisAdu->fill($data);
+        $jenisAdu->save();
+        return redirect()->route('master_jenis_aduan.index');
+        // return $jenisAdu;
+    }
 }

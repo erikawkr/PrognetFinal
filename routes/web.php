@@ -67,3 +67,5 @@ Route::post('admin/trx_generate/store',[GenerateAduanController::class,'store'])
 Route::post('/admin/master_jenis_aduan/grid',[JenisAduanController::class,'grid'])->name('master_jenis_aduan.grid');
 Route::get('/admin/master_jenis_aduan/index',[JenisAduanController::class,'index'])->name('master_jenis_aduan.index');
 Route::delete('/admin/master_jenis_aduan/{id}',[JenisAduanController::class,'destroy'])->name('master_jenis_aduan.delete');
+Route::get('admin/master_jenis_aduan/create',[JenisAduanController::class,'create'])->name('master_jenis_aduan.create');
+Route::post('admin/master_jenis_aduan/store',[JenisAduanController::class,'store'])->name('master_jenis_aduan.store');
