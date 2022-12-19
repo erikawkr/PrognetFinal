@@ -17,6 +17,7 @@ class MasterRespon extends Model
         'nama',
         'spesialisasi_id',
         'jeniskelamin_id',
+        'jenis_profesi_id',
     ];
 
     public function aduan_respon(){

@@ -36,9 +36,12 @@ Route::get('/admin/master_pengaduan/{id}/edit',[PengaduController::class,'edit']
 Route::delete('/admin/master_pengaduan/{id}',[PengaduController::class,'destroy'])->name('master_pengaduan.delete');
 
 //respone
+Route::get('admin/master_respon/create',[ResponderController::class,'create'])->name('master_respon.create');
+Route::post('/admin/master_respon/store',[ResponderController::class,'store'])->name('master_respon.store');
 Route::post('/admin/master_respon/grid',[ResponderController::class,'grid'])->name('master_respon.grid');
 Route::get('/admin/master_respon/index',[ResponderController::class,'index'])->name('master_respon.index');
 Route::get('/admin/master_respon/{id}/edit',[ResponderController::class,'edit'])->name('master_respon.edit');
+Route::put('/admin/master_respon/{id}/update',[ResponderController::class,'update'])->name('master_respon.update');
 Route::delete('/admin/master_respon/{id}',[ResponderController::class,'destroy'])->name('master_respon.delete');
 
 

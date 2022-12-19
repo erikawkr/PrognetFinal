@@ -10,6 +10,9 @@
         <h4 class="card-title text-primary"><i class='{{$icon}}' data-toggle='tooltip' data-placement='bottom' title='Data {{$subtitle}}'></i>  {{strtoupper("Data ".$subtitle)}}</h4>
     </div>
     <div class="nk-fmg-actions">
+        <div class="btn-group">
+            <a href="{{ route('master_respon.create') }}" class="btn btn-sm btn-primary" onclick="buttondisable(this)"><em class="icon fas fa-plus"></em> <span>Add Data</span></a>
+        </div>
     </div>
 </div>
 <div class="row gy-3 d-none" id="loaderspin">

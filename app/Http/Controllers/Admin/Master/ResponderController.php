@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin\Master;
 
 use App\Http\Controllers\Controller;
+use App\Models\Spesialisasi;
+use App\Models\JenisProfesi;
 use Illuminate\Http\Request;
 use App\Models\MasterRespon;
 use Yajra\DataTables\Facades\DataTables;
@@ -43,5 +45,54 @@ class ResponderController extends Controller
                 })
                 ->rawColumns(['aksi'])
                 ->make(true);
+    }
+
+    public function create(){
+        $icon = 'ni ni-dashlite';
+        $subtitle = 'Tambah Data Master Respon';
+        $spesialisasi = Spesialisasi::all();
+        $jenis_profesi = JenisProfesi::all();
+        return view('pages.admin.master_respon.create',compact('subtitle','icon','spesialisasi','jenis_profesi'));
+    }
+
+    public function store(Request $request){
+        $validated = $request->validate([
+            'kode'=> ['required',],
+            'nama'=> ['required',],
+            'spesialisasi_id' => ['required',],
+            'jenis_profesi_id' => ['required',],
+        ]);
+        $data = $request->all();
+        $Responer = new MasterRespon;
+        $Responer->fill($data);
+        $Responer->save();
+        return redirect()->route('master_respon.index');
+        //return $Responer;
+    }
+
+    public function edit($id)
+    {
+        $icon = 'ni ni-dashlite';
+        $subtitle = 'Update Data Master Respon';
+        $spesialisasi = Spesialisasi::all();
+        $jenis_profesi = JenisProfesi::all();
+        $respon = MasterRespon::findOrFail($id);
+        return view('pages.admin.master_respon.edit',compact('subtitle','icon','respon','spesialisasi','jenis_profesi'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $validated = $request->validate([
+            'kode'=> ['required',],
+            'nama'=> ['required',],
+            'spesialisasi_id' => ['required',],
+            'jenis_profesi_id' => ['required',],
+        ]);
+        $data = $request->all();
+        $Responer = MasterRespon::find($id);
+        $Responer->fill($data);
+        $Responer->save();
+        return redirect()->route('master_respon.index');
+        //return $Responer;
     }
 }
