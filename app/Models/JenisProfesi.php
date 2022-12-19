@@ -15,7 +15,7 @@ class JenisProfesi extends Model
     }
     protected $fillable = [
         'kode',
-        'nama',
+        'nama_profesi',
         'create_at',
     ];
 }

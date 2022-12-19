@@ -58,8 +58,8 @@
                         <thead style="color:#526484; font-size:11px;" class="thead-light">
                             <th width="1%">No.</th>
                             <th width="10%">aduan_Id</th>
-                            <th width="10%">pengadu_id</th>
-                            <th width="10%">pegawai_id</th>
+                            <th width="10%">Nama Pengadu</th>
+                            <th width="10%">Nama Pegawai</th>
                             <th width="10%">Tanggal</th>
                             <th width="10%">Respon</th>
                             <th width="10%">Respon_Foto</th>

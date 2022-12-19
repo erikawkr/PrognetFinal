@@ -60,59 +60,31 @@
                     {{ Session::get('success') }}
                 </div>
                 @endif
-                <form action="{{route('trx_aduan.store')}}" method="POST" enctype="multipart/form-data">
-                
+                <form action="{{ route('trx_aduan.store_respon', $record->id) }}" method="POST">
                     @csrf
                     <div class="form-body">
-                        <div class="form-group">
-                            <label>Pengadu_ID</label>
-                            <input type="text" name="pengadu_id" class="form-control @error('pengadu_id') is invalid @enderror"
-                                placeholder="Masukkan pengadu_id" value="{{ $record->pengadu_id}}" disabled>
-                                @error('pengadu_id')
-                                    <div class="invalid-feedback" style="display:block;">
-                                        {{  $message }}
-                                    </div>
-                                @enderror
-                        </div>
                         <div class="row">
-                            <div class="col-6">
+                            <div class="col-4">
                                 <div class="form-group">
                                     <label>Nama Pengadu</label>
                                     <input type="text" name="pengadu_id" class="form-control @error('pengadu_id') is invalid @enderror"
                                         placeholder="Masukkan pengadu_id" value="{{ $record->pengadu->nama}}" disabled>
-                                        @error('pengadu_id')
-                                            <div class="invalid-feedback" style="display:block;">
-                                                {{  $message }}
-                                            </div>
-                                        @enderror
                                 </div>
                             </div>
-                            <div class="col-6">
+                            <div class="col-4">
                                 <div class="form-group">
                                     <label>Email Pengadu</label>
                                     <input type="text" name="pengadu_id" class="form-control @error('pengadu_id') is invalid @enderror"
                                         placeholder="Masukkan pengadu_id" value="{{ $record->pengadu->email}}" disabled>
-                                        @error('pengadu_id')
-                                            <div class="invalid-feedback" style="display:block;">
-                                                {{  $message }}
-                                            </div>
-                                        @enderror
                                 </div>
                             </div>
-                        </div>
-                        <div class="form-group mt-3">
-                            <label for="inputAddress">Jenis Aduan</label>
-                            <select class="custom-select" name="jenis_aduan_id" aria-label="Default select example" disabled>
-                                <option value="" selected>Open this select menu</option>
-                                @foreach ($jenis_aduans as $item)     
-                                <option value="{{ $item->id }}"  @if($item->id == $record->jenis_aduan_id) selected @endif>{{ $item->jenis_aduan}}</option>
-                                @endforeach
-                            </select>
-                            @error('jenis_aduan_id')
-                                    <div class="invalid-feedback" style="display:block;">
-                                    {{ $message }}
-                                    </div>
-                            @enderror
+                            <div class="col-4">
+                                <div class="form-group">
+                                    <label>Jenis Aduan</label>
+                                    <input type="text" name="jenis_aduan_id" class="form-control @error('pengadu_id') is invalid @enderror"
+                                        placeholder="Masukkan pengadu_id" value="{{ $record->jenis_aduan->jenis_aduan}}" disabled>
+                                </div>
+                            </div>
                         </div>
                         <div class="form-group">
                             <label>Aduan</label>
@@ -126,10 +98,69 @@
                         <div class="form-group row">
                             <label class="col-12" for="exampleFormControlFile1">Aduan Foto</label>
                             <div class="col-12">
-                                <img src="asset/aduan/{{ $record->aduan_foto }}" width='500px' height='auto'>
+                                <a href="asset/aduan/{{ $record->aduan_foto }}" target="_blank">
+                                    {{ $record->aduan_foto }}
+                                    {{--  <img src="asset/aduan/{{ $record->aduan_foto }}" width='300px' height='300px'> --}}
+                                </a> 
                             </div>
-                          </div>
+                        </div>
                         {{-- <button type="submit" class="btn btn-primary">Tambah</button> --}}
+                        <br>
+                        <hr>
+                        <br>
+                        @foreach ($respons as $item)
+                        @if (isset($item->pegawai_id))
+                        <div class="form-group row " >
+                            <div class="col-4"></div>
+                            <div class="col-8" >
+                                <textarea class="summernote-disabled" name="aduan" disabled >{{ $item->respon }}</textarea>
+                            </div>
+                            <label class="col-12 text-right" style="margin-bottom:0px;">{{ $item->pegawai->jenis_profesi->nama_profesi }} - ({{ $item->pegawai->nama }})</label>
+                            <label class="col-12 text-right">{{ $item->created_at }}</label>
+                        </div>  
+                        @else
+                        <div class="form-group row " >
+                            <div class="col-8" >
+                                <textarea class="summernote-disabled" name="aduan" disabled >{{ $item->respon }}</textarea>
+                            </div>
+                            <div class="col-4"></div>
+                            <label class="col-12 text-left" style="margin-bottom:0px;">{{ $item->pengadu->nama }}</label>
+                            <label class="col-12 text-left">{{ $item->created_at }}</label>
+                        </div>  
+                        @endif
+                            
+                        @endforeach
+                        
+                        
+                        <br>
+                        <br>
+                        <div class="form-group row" >
+                            {{-- <div class="col-4"></div> --}}
+                            <div class="col-12 mb-2">
+                                <div class="row">
+                                    <div class="col-9">
+                                        <select class="custom-select" name="pegawai_id" aria-label="Default select example">
+                                            <option value="" selected>Select Pegawai</option>
+                                            @foreach ($pegawais as $pegawai)     
+                                            <option value="{{ $pegawai->id }}">{{ $pegawai->nama}}</option>
+                                            @endforeach
+                                        </select>
+                                        @error('pegawai_id')
+                                                <div class="invalid-feedback" style="display:block;">
+                                                {{ $message }}
+                                                </div>
+                                        @enderror
+                                    </div>
+                                    <div class="col-3">
+                                        <button type="submit" class="btn btn-primary text-center" style="width:100%; text-align:center">Submit</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12" style="float:right" >
+                                <textarea class="summernote" name="respond"></textarea>
+                            </div>
+                            {{-- <label class="col-12 text-right">Pegawai - (Pak Okas)</label> --}}
+                        </div>
                     </div>
                 </form>
             </div>

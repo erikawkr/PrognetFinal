@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\JenisAduan;
 use Illuminate\Http\Request;
 use App\Models\TrxAduan;
+use App\Models\TrxAduanRespon;
+use App\Models\MasterRespon;
 use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Support\Facades\Storage;
 use Carbon\Carbon;
@@ -37,7 +39,7 @@ class TrxAduanController extends Controller
                 ->addColumn('aduan', function($data){
 
                     //words ="";
-                    return "<br><span class='badge badge-primary mt-1'>" . str_word_count(strip_tags($data->aduan)) . " Words</span> ";
+                    return "<span class='badge badge-primary mt-1' >" . str_word_count(strip_tags($data->aduan)) . " Words</span> ";
                 })
                 ->addColumn('status_close', function($data){
                     if($data->status_close == 0){
@@ -48,7 +50,15 @@ class TrxAduanController extends Controller
                 })
                 ->addColumn('aksi', function($data){
                     $aksi = "";
-                    $aksi .= "<a title='Show Data' href='/admin/trx_aduan/".$data->id."/show' class='btn btn-md btn-success' data-toggle='tooltip' data-placement='bottom' onclick='buttonsmdisable(this)'><i class='ti-file' ></i></a>";
+                    if($data->status_close==0){
+                        $aksi .= "<a title='respon' href='/admin/trx_aduan/".$data->id."/respon' class='btn btn-md btn-primary ml-2' data-toggle='tooltip' data-placement='bottom' onclick='buttonsmdisable(this)'><i class='ti-comments' ></i></a>";
+                    }else{
+                        return "";
+
+                    }
+                    // jika $data atribute statusnya == 0
+                    //  maka tambahin .= aksi itu respond data
+                    $aksi .= "<a title='Show Data' href='/admin/trx_aduan/".$data->id."/show' class='btn btn-md btn-success ml-2' data-toggle='tooltip' data-placement='bottom' onclick='buttonsmdisable(this)'><i class='ti-file' ></i></a>";
                     // $aksi .= "<a title='Delete Data' href='javascript:void(0)' onclick='deleteData(\"{$data->id}\",\"{$data->email}\",this)' class='btn btn-md btn-danger' data-id='{$data->id}' data-email='{$data->email}'><i class='ti-trash' data-toggle='tooltip' data-placement='bottom' ></i></a> ";
                     return $aksi;
                 })
@@ -98,6 +108,32 @@ class TrxAduanController extends Controller
         $jenis_aduans = JenisAduan::all();
         $record = TrxAduan::find($id);
         return view('pages.admin.trx_aduan.show',compact('subtitle','icon', 'jenis_aduans', 'record'));
+    }
+
+    public function respon($id){
+        $icon = 'ni ni-dashlite';
+        $subtitle = 'Trx Aduan';
+        $jenis_aduans = JenisAduan::all();
+        $record = TrxAduan::find($id);
+        $respons=TrxAduanRespon::where('aduan_id', '=', $record->id)->get();
+        $pegawais=MasterRespon::all();
+        return view('pages.admin.trx_aduan.respon',compact('subtitle','icon', 'jenis_aduans', 'record', 'respons', 'pegawais'));
+        // return $record;
+
+    }
+
+    public function store_respon($id, Request $request){
+
+        $record = TrxAduan::find($id);
+        $reply_respond = new TrxAduanRespon;
+        $temp_id = time();
+        $reply_respond->id = (int)$temp_id;
+        $reply_respond->aduan_id = $record->id;
+        $reply_respond->tanggal = now();
+        $reply_respond->respon = $request->respond;
+        $reply_respond->pegawai_id = $request->pegawai_id;
+        $reply_respond->save();
+        return redirect()->route('trx_aduan.respon', $id);
     }
 
 

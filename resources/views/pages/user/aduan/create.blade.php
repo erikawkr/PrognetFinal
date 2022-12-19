@@ -90,7 +90,7 @@
                         </div>
                         <div class="form-group">
                             <label>Aduan</label>
-                            <textarea id="summernote" name="aduan"></textarea>
+                            <textarea class="summernote" name="aduan"></textarea>
                             @error('aduan')
                                 <div class="invalid-feedback" style="display:block;">
                                     {{  $message }}

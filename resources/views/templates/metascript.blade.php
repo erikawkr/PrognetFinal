@@ -33,10 +33,16 @@
 
 <script>
     $(document).ready(function() {
-        $('#summernote').summernote({
+        $('.summernote').summernote({
             placeholder: "Write your content here",
             height: 200,
         });
+        // $('.summernote-disabled').summernote('disabled');
+
+        $('.summernote-disabled').summernote({
+            focus:false,
+            toolbar: false,
+        });
     });
-     $('#summernote-disabled').summernote('disable');
+     
 </script>

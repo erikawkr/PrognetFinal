@@ -9,7 +9,7 @@ class MasterPengadu extends Model
 {
     use HasFactory;
 
-    protected $table = 'm_help_pengadu';
+    protected $table = 'help_pengadus';
     protected $fillable = [
         'nama',
         'alamat',

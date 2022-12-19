@@ -60,13 +60,13 @@
                     <table id="{{$table_id}}" class="small-table table " style="width:100%">
                         <thead style="color:#526484; font-size:11px;" class="thead-light">
                             <th width="1%">No.</th>
-                            <th width="10%">Nomor Pengaduan</th>
+                            <th width="10%">Nama Pengadu</th>
                             <th width="10%">Jenis Aduan</th>
                             <th width="10%">tanggal</th>
                             <th width="10%">Aduan</th>
                             <th width="10%">aduan_foto</th>
                             <th width="5%">status</th>
-                            <th width="10%">Aksi</th>
+                            <th width="15%">Aksi</th>
                         </thead>
                         <tbody></tbody>
                     </table>
