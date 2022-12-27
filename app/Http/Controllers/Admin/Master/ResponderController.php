@@ -95,4 +95,10 @@ class ResponderController extends Controller
         return redirect()->route('master_respon.index');
         //return $Responer;
     }
+
+    public function destroy($id)
+    {
+        MasterRespon::destroy($id);
+        return response()->json(array('success' => '1','msg' => 'Data telas dihapus')); 
+    }
 }
