@@ -151,10 +151,11 @@ function deleteData(id,name,elm){
             $.ajax({
                 url:"{{url('/admin/master_respon')}}/"+id,
                 data:{
+                    "id": id,
                     _method:"DELETE",
                     _token:"{{csrf_token()}}"
                 },
-                type:"POST",
+                type:"DELETE",
                 dataType:"JSON",
                 beforeSend:function(){
                     block("#{{$table_id}}");
