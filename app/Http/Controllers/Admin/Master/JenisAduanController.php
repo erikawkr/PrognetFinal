@@ -48,4 +48,28 @@ class JenisAduanController extends Controller
         return redirect()->route('master_jenis_aduan.index');
         // return $jenisAdu;
     }
+    public function edit($id)
+    {
+        $icon = 'ni ni-dashlite';
+        $subtitle = 'Update Data Master Jenis Aduan';
+        $jenisAdu = JenisAduan::findOrFail($id);
+        return view('pages.admin.master_jenis_aduan.edit',compact('subtitle','icon','jenisAdu'));
+    }
+    public function update(Request $request, $id)
+    {
+        $validated = $request->validate([
+            'jenis_aduan'=> ['required',],
+        ]);
+        $data = $request->all();
+        $jenisAdu = JenisAduan::find($id);
+        $jenisAdu->fill($data);
+        $jenisAdu->save();
+        return redirect()->route('master_jenis_aduan.index');
+        // return $jenisAdu;
+    }
+    public function destroy($id)
+    {
+        JenisAduan::destroy($id);
+        return response()->json(array('success' => '1', 'msg' => 'Data telah dihapus'));
+    }
 }

@@ -74,3 +74,6 @@ Route::get('/admin/master_jenis_aduan/index',[JenisAduanController::class,'index
 Route::delete('/admin/master_jenis_aduan/{id}',[JenisAduanController::class,'destroy'])->name('master_jenis_aduan.delete');
 Route::get('admin/master_jenis_aduan/create',[JenisAduanController::class,'create'])->name('master_jenis_aduan.create');
 Route::post('admin/master_jenis_aduan/store',[JenisAduanController::class,'store'])->name('master_jenis_aduan.store');
+Route::get('/admin/master_jenis_aduan/{id}/edit',[JenisAduanController::class,'edit'])->name('master_jenis_aduan.edit');
+Route::put('/admin/master_jenis_aduan/{id}/update',[JenisAduanController::class,'update'])->name('master_jenis_aduan.update');
+Route::delete('/admin/master_jenis_aduan/{id}',[JenisAduanController::class,'destroy'])->name('master_jenis_aduan.delete');
