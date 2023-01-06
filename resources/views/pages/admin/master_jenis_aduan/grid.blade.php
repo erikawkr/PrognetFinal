@@ -60,9 +60,9 @@
                     <table id="{{$table_id}}" class="small-table table " style="width:100%">
                         <thead style="color:#526484; font-size:11px;" class="thead-light">
                             <th width="1%">No.</th>
-                            <th width="10%">jenis_aduan</th>
-                            <th width="10%">created_at</th>
-                            <th width="10%">updated_at</th>
+                            <th width="10%">Jenis Aduan</th>
+                            <th width="10%">Created At</th>
+                            <th width="10%">Updated At</th>
                             <th width="10%">Aksi</th>
                         </thead>
                         <tbody></tbody>

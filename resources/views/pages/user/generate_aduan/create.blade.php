@@ -60,23 +60,51 @@
                     {{ Session::get('success') }}
                 </div>
                 @endif
-                <form action="{{route('trx_generate.store')}}" method="POST">
+                <form action="{{route('trx_generate.store')}}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="form-body">
-                        <div class="form-group">
-                            <label>Nama</label>
-                            <input type="text" name="nama" class="form-control @error('fullname') is invalid @enderror"
-                                placeholder="Masukkan nama" value="{{ old('fullname') }}" >
-                                @error('fullname')
-                                    <div class="invalid-feedback" style="display:block;">
-                                        {{  $message }}
-                                    </div>
-                                @enderror
+                        <div class="row">
+                            <div class="col-4">
+                                <div class="form-group">
+                                    <label>Nama</label>
+                                    <input type="text" name="nama" class="form-control @error('fullname') is invalid @enderror"
+                                        placeholder="Masukkan nama" value="{{ old('fullname') }}" >
+                                        @error('fullname')
+                                            <div class="invalid-feedback" style="display:block;">
+                                                {{  $message }}
+                                            </div>
+                                        @enderror
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="form-group">
+                                    <label>NO.Telp</label>
+                                    <input type="text" name="telepon" class="form-control @error('telepon') is invalid @enderror"
+                                    placeholder="Masukkan No.Telp" value="{{ old('telepon') }}">
+                                    @error('telepon')
+                                        <div class="invalid-feedback" style="display:block;">
+                                            {{  $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Email </label>
+                                    <input type="email" class="form-control" name="email" aria-describedby="emailHelp" 
+                                    placeholder="Masukkan email" value="{{ old('email') }}">
+                                    @error('email')
+                                            <div class="invalid-feedback" style="display:block;">
+                                                {{  $message }}
+                                            </div>
+                                        @enderror
+                                </div>   
+                            </div>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group mt-2">
                             <label for="inputAddress">Address</label>
-                            <input type="text" class="form-control @error('alamat') is invalid @enderror" 
-                            name="alamat"  id="inputAddress" placeholder="Masukkan Alamat" value="{{ old('alamat') }}">
+                            <textarea class="form-control @error('alamat') is invalid @enderror" 
+                            name="alamat"  id="inputAddress" placeholder="Masukkan Alamat"></textarea>
                             @error('alamat')
                                     <div class="invalid-feedback" style="display:block;">
                                     {{ $message }}
@@ -84,25 +112,32 @@
                             @enderror
                         </div>
                         <div class="form-group">
-                            <label>NO.Telp</label>
-                            <input type="text" name="telepon" class="form-control @error('telepon') is invalid @enderror"
-                            placeholder="Masukkan No.Telp" value="{{ old('telepon') }}">
-                            @error('telepon')
+                            <label for="inputAddress">Jenis Aduan</label>
+                            <select class="custom-select" name="jenis_aduan_id" aria-label="Default select example">
+                                <option value="" selected>Open this select menu</option>
+                                @foreach ($jenis_aduans as $item)     
+                                <option value="{{ $item->id }}">{{ $item->jenis_aduan}}</option>
+                                @endforeach
+                            </select>
+                            @error('jenis_aduan_id')
+                                    <div class="invalid-feedback" style="display:block;">
+                                    {{ $message }}
+                                    </div>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <label>Aduan</label>
+                            <textarea class="summernote" name="aduan"></textarea>
+                            @error('aduan')
                                 <div class="invalid-feedback" style="display:block;">
                                     {{  $message }}
                                 </div>
                             @enderror
                         </div>
                         <div class="form-group">
-                            <label for="exampleInputEmail1">Email </label>
-                            <input type="email" class="form-control" name="email" aria-describedby="emailHelp" 
-                            placeholder="Masukkan email" value="{{ old('email') }}">
-                            @error('email')
-                                    <div class="invalid-feedback" style="display:block;">
-                                        {{  $message }}
-                                    </div>
-                                @enderror
-                        </div>
+                            <label for="exampleFormControlFile1">Aduan Foto</label>
+                            <input type="file" class="form-control-file" id="gambar" name="gambar" required>
+                        </div>  
                         <button type="submit" class="btn btn-primary">Tambah</button>
                     </div>
                 </form>

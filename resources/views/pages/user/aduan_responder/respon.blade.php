@@ -60,7 +60,7 @@
                     {{ Session::get('success') }}
                 </div>
                 @endif
-                <form action="{{ route('trx_aduan.store_respon', $record->id) }}" method="POST">
+                <form action="{{ route('user.aduan_responder.store', $record->id) }}" method="POST">
                     @csrf
                     <div class="form-body">
                         <div class="form-group">
@@ -121,21 +121,22 @@
                         @foreach ($respons as $item)
                         @if (isset($item->pegawai_id))
                         <div class="form-group row " >
-                            <div class="col-4"></div>
                             <div class="col-8" >
                                 <textarea class="summernote-disabled" name="aduan" disabled >{{ $item->respon }}</textarea>
                             </div>
-                            <label class="col-12 text-right" style="margin-bottom:0px;">{{ $item->pegawai->jenis_profesi->nama_profesi }} - ({{ $item->pegawai->nama }})</label>
-                            <label class="col-12 text-right">{{ $item->created_at }}</label>
+                            <div class="col-4"></div>
+
+                            <label class="col-12 text-left" style="margin-bottom:0px;">{{ $item->pegawai->jenis_profesi->nama_profesi }} - ({{ $item->pegawai->nama }})</label>
+                            <label class="col-12 text-left">{{ $item->created_at }}</label>
                         </div>  
                         @else
                         <div class="form-group row " >
+                            <div class="col-4"></div>
                             <div class="col-8" >
                                 <textarea class="summernote-disabled" name="aduan" disabled >{{ $item->respon }}</textarea>
                             </div>
-                            <div class="col-4"></div>
-                            <label class="col-12 text-left" style="margin-bottom:0px;">{{ $item->pengadu->nama }}</label>
-                            <label class="col-12 text-left">{{ $item->created_at }}</label>
+                            <label class="col-12 text-right" style="margin-bottom:0px;">{{ $item->pengadu->nama }}</label>
+                            <label class="col-12 text-right">{{ $item->created_at }}</label>
                         </div>  
                         @endif
                             
@@ -149,17 +150,6 @@
                             <div class="col-12 mb-2">
                                 <div class="row">
                                     <div class="col-9">
-                                        <select class="custom-select" name="pegawai_id" aria-label="Default select example">
-                                            <option value="" selected>Select Pegawai</option>
-                                            @foreach ($pegawais as $pegawai)     
-                                            <option value="{{ $pegawai->id }}">{{ $pegawai->nama}}</option>
-                                            @endforeach
-                                        </select>
-                                        @error('pegawai_id')
-                                                <div class="invalid-feedback" style="display:block;">
-                                                {{ $message }}
-                                                </div>
-                                        @enderror
                                     </div>
                                     <div class="col-3">
                                         <button type="submit" class="btn btn-primary text-center" style="width:100%; text-align:center">Submit</button>
