@@ -11,6 +11,7 @@ class TrxAduan extends Model
     use HasFactory;
     protected $table = 't_help_aduan';
     protected $fillable = [
+        'id',
         'pengadu_id',
         'jenis_aduan_id',
         'tanggal',

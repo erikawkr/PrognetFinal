@@ -56,18 +56,22 @@
                                         <span class="nk-menu-icon"><em class="icon ni ni-building"></em></span>
                                         <span class="nk-menu-text">Generate Aduan</span><!-- <span class="nk-menu-badge">HOT</span> -->
                                     </a>
+                                    <a href="{{route('user.aduan_responder.index')}}" class="nk-menu-link">
+                                        <span class="nk-menu-icon"><em class="icon ni ni-building"></em></span>
+                                        <span class="nk-menu-text">Aduan Respon</span><!-- <span class="nk-menu-badge">HOT</span> -->
+                                    </a>
                                 </li><!-- .nk-menu-item -->
                                 <li class="nk-menu-heading">
                                     <h6 class="overline-title text-primary-alt">Report</h6>
                                 </li><!-- .nk-menu-item -->
                                 <li class="nk-menu-item">
-                                    <a href="{{URL('/report1')}}" class="nk-menu-link">
+                                    <a href="{{route('report.index')}}" class="nk-menu-link">
                                         <span class="nk-menu-icon"><em class="icon ni ni-list-index"></em></span>
                                         <span class="nk-menu-text">Report 1</span>
                                     </a>
                                 </li><!-- .nk-menu-item -->
                                 <li class="nk-menu-item">
-                                    <a href="{{URL('/report2')}}" class="nk-menu-link">
+                                    <a href="{{URL('REPORT')}}" class="nk-menu-link">
                                         <span class="nk-menu-icon"><em class="icon ni ni-growth"></em></span>
                                         <span class="nk-menu-text">Report 2</span>
                                     </a>

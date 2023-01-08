@@ -65,9 +65,9 @@
                     @csrf
                     <div class="form-body">
                         <div class="form-group">
-                            <label>Pengadu_ID</label>
+                            <label>Nomor Aduan</label>
                             <input type="text" name="pengadu_id" class="form-control @error('pengadu_id') is invalid @enderror"
-                                placeholder="Masukkan pengadu_id" value="{{ $record->pengadu_id}}" disabled>
+                                placeholder="Masukkan pengadu_id" value="{{ $record->id}}" disabled>
                                 @error('pengadu_id')
                                     <div class="invalid-feedback" style="display:block;">
                                         {{  $message }}

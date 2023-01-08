@@ -7,6 +7,8 @@ use App\Http\Controllers\Admin\Master\JenisAduanController;
 use App\Http\Controllers\Admin\TrxAduanController;
 use App\Http\Controllers\Admin\TrxAduanResponController;
 use App\Http\Controllers\Admin\GenerateAduanController;
+use App\Http\Controllers\Admin\AduanResponderController;
+use App\Http\Controllers\Admin\ReportController;
 
 
 
@@ -22,7 +24,7 @@ use App\Http\Controllers\Admin\GenerateAduanController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('trx_aduan.index');
 });
 
 // Auth::routes();
@@ -33,6 +35,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::post('/admin/master_pengaduan/grid',[PengaduController::class,'grid'])->name('master_pengaduan.grid');
 Route::get('/admin/master_pengaduan/index',[PengaduController::class,'index'])->name('master_pengaduan.index');
 Route::get('/admin/master_pengaduan/{id}/edit',[PengaduController::class,'edit'])->name('master_pengaduan.edit');
+Route::put('/admin/master_pengadu/{id}/update',[PengaduController::class,'update'])->name('master_pengadu.update');
 Route::delete('/admin/master_pengaduan/{id}',[PengaduController::class,'destroy'])->name('master_pengaduan.delete');
 
 //respone
@@ -43,7 +46,6 @@ Route::get('/admin/master_respon/index',[ResponderController::class,'index'])->n
 Route::get('/admin/master_respon/{id}/edit',[ResponderController::class,'edit'])->name('master_respon.edit');
 Route::put('/admin/master_respon/{id}/update',[ResponderController::class,'update'])->name('master_respon.update');
 Route::delete('/admin/master_respon/{id}',[ResponderController::class,'destroy'])->name('master_respon.delete');
-
 
 
 // User pengaduan
@@ -67,8 +69,17 @@ Route::post('/admin/trx_aduan/{id}/store_respon',[TrxAduanController::class,'sto
 Route::get('admin/trx_generate/create',[GenerateAduanController::class,'create'])->name('trx_generate.create');
 Route::post('admin/trx_generate/store',[GenerateAduanController::class,'store'])->name('trx_generate.store');
 
+// ADUAN RESPON USER
+Route::get('/user/aduan_responder/cek_nomor_aduan',[AduanResponderController::class,'index'])->name('user.aduan_responder.index');
+Route::get('/user/aduan_responder/{id}/respon',[AduanResponderController::class,'respon'])->name('user.aduan_responder.respon');
+Route::post('user/aduan_responder/cek_nomor_aduan_post',[AduanResponderController::class,'cek_aduan'])->name('user.aduan_responder.cek_aduan');
+Route::post('user/aduan_responder/{id}store',[AduanResponderController::class,'store'])->name('user.aduan_responder.store');
 
 
+//report
+Route::get('/report-1',[ReportController::class,'index'])->name('report.index');
+
+// Jenis Aduan
 Route::post('/admin/master_jenis_aduan/grid',[JenisAduanController::class,'grid'])->name('master_jenis_aduan.grid');
 Route::get('/admin/master_jenis_aduan/index',[JenisAduanController::class,'index'])->name('master_jenis_aduan.index');
 Route::delete('/admin/master_jenis_aduan/{id}',[JenisAduanController::class,'destroy'])->name('master_jenis_aduan.delete');
@@ -76,4 +87,5 @@ Route::get('admin/master_jenis_aduan/create',[JenisAduanController::class,'creat
 Route::post('admin/master_jenis_aduan/store',[JenisAduanController::class,'store'])->name('master_jenis_aduan.store');
 Route::get('/admin/master_jenis_aduan/{id}/edit',[JenisAduanController::class,'edit'])->name('master_jenis_aduan.edit');
 Route::put('/admin/master_jenis_aduan/{id}/update',[JenisAduanController::class,'update'])->name('master_jenis_aduan.update');
-Route::delete('/admin/master_jenis_aduan/{id}',[JenisAduanController::class,'destroy'])->name('master_jenis_aduan.delete');
+
+

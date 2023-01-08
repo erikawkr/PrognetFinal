@@ -10,7 +10,7 @@ class JenisAduan extends Model
     use HasFactory;
     protected $table = 'm_jenis_aduan';
 
-    public function aduan_respon(){
+    public function aduans(){
         return $this->hasMany(TrxAduan::class, 'jenis_aduan_id');
     }
     protected $fillable = [

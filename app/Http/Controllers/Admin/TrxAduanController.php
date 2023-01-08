@@ -27,7 +27,9 @@ class TrxAduanController extends Controller
         $data = TrxAduan::with('jenis_aduan')->get();
         $datatables = DataTables::of($data);
         return $datatables
-                ->addIndexColumn()
+                ->addColumn('DT_RowIndex', function($data){
+                    return $data->id;
+                })
                 ->addColumn('pengadu_id', function($data){
                     return $data->pengadu->nama;
                 })
