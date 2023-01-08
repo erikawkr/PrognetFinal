@@ -140,12 +140,13 @@ function deleteData(id,name,elm){
         /* Read more about isConfirmed, isDenied below */
         if (result.isConfirmed) {
             $.ajax({
-                url:"{{url('/admin/master_pengaduan')}}/"+id,
+                url:"{{url('/admin/master_jenis_aduan')}}/"+id,
                 data:{
+                    "id": id,
                     _method:"DELETE",
                     _token:"{{csrf_token()}}"
                 },
-                type:"POST",
+                type:"DELETE",
                 dataType:"JSON",
                 beforeSend:function(){
                     block("#{{$table_id}}");

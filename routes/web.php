@@ -47,15 +47,6 @@ Route::get('/admin/master_respon/{id}/edit',[ResponderController::class,'edit'])
 Route::put('/admin/master_respon/{id}/update',[ResponderController::class,'update'])->name('master_respon.update');
 Route::delete('/admin/master_respon/{id}',[ResponderController::class,'destroy'])->name('master_respon.delete');
 
-// Jenis Aduan
-Route::post('/admin/master_jenis_aduan/grid',[JenisAduanController::class,'grid'])->name('master_jenis_aduan.grid');
-Route::get('/admin/master_jenis_aduan/index',[JenisAduanController::class,'index'])->name('master_jenis_aduan.index');
-Route::delete('/admin/master_jenis_aduan/{id}',[JenisAduanController::class,'destroy'])->name('master_jenis_aduan.delete');
-Route::get('admin/master_jenis_aduan/create',[JenisAduanController::class,'create'])->name('master_jenis_aduan.create');
-Route::post('admin/master_jenis_aduan/store',[JenisAduanController::class,'store'])->name('master_jenis_aduan.store');
-
-
-
 
 // User pengaduan
 Route::get('admin/trx_aduan/create',[TrxAduanController::class,'create'])->name('trx_aduan.create');
@@ -87,5 +78,14 @@ Route::post('user/aduan_responder/{id}store',[AduanResponderController::class,'s
 
 //report
 Route::get('/report-1',[ReportController::class,'index'])->name('report.index');
+
+// Jenis Aduan
+Route::post('/admin/master_jenis_aduan/grid',[JenisAduanController::class,'grid'])->name('master_jenis_aduan.grid');
+Route::get('/admin/master_jenis_aduan/index',[JenisAduanController::class,'index'])->name('master_jenis_aduan.index');
+Route::delete('/admin/master_jenis_aduan/{id}',[JenisAduanController::class,'destroy'])->name('master_jenis_aduan.delete');
+Route::get('admin/master_jenis_aduan/create',[JenisAduanController::class,'create'])->name('master_jenis_aduan.create');
+Route::post('admin/master_jenis_aduan/store',[JenisAduanController::class,'store'])->name('master_jenis_aduan.store');
+Route::get('/admin/master_jenis_aduan/{id}/edit',[JenisAduanController::class,'edit'])->name('master_jenis_aduan.edit');
+Route::put('/admin/master_jenis_aduan/{id}/update',[JenisAduanController::class,'update'])->name('master_jenis_aduan.update');
 
 
