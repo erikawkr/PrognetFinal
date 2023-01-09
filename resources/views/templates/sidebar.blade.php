@@ -54,11 +54,11 @@
                                 <li class="nk-menu-item">
                                     <a href="{{route('trx_generate.create')}}" class="nk-menu-link">
                                         <span class="nk-menu-icon"><em class="icon ni ni-building"></em></span>
-                                        <span class="nk-menu-text">Generate Aduan</span><!-- <span class="nk-menu-badge">HOT</span> -->
+                                        <span class="nk-menu-text">Pengaduan Baru</span><!-- <span class="nk-menu-badge">HOT</span> -->
                                     </a>
                                     <a href="{{route('user.aduan_responder.index')}}" class="nk-menu-link">
                                         <span class="nk-menu-icon"><em class="icon ni ni-building"></em></span>
-                                        <span class="nk-menu-text">Aduan Respon</span><!-- <span class="nk-menu-badge">HOT</span> -->
+                                        <span class="nk-menu-text">Lihat Aduan</span><!-- <span class="nk-menu-badge">HOT</span> -->
                                     </a>
                                 </li><!-- .nk-menu-item -->
                                 <li class="nk-menu-heading">

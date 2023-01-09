@@ -87,5 +87,3 @@ Route::post('user/aduan_responder/{id}store',[AduanResponderController::class,'s
 
 //report
 Route::get('/report-1',[ReportController::class,'index'])->name('report.index');
-
-
