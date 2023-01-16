@@ -7,7 +7,7 @@
 @section('content')
 <div class="nk-fmg-body-head d-none d-lg-flex">
     <div class="nk-fmg-search">
-        <h4 class="card-title text-primary"><i class='{{$icon}}' data-toggle='tooltip' data-placement='bottom' title='Data {{$subtitle}}'></i>  {{strtoupper("Data ".$subtitle)}}</h4>
+        <h4 class="card-title text-primary"><i class='{{$icon}}' data-toggle='tooltip' data-placement='bottom' title='Data'></i>  {{strtoupper("Pengaduan ")}}</h4>
     </div>
     <div class="nk-fmg-actions">
     </div>
@@ -37,145 +37,27 @@
 
 <!-- <div class="nk-fmg-body-content"> -->
     <div class="nk-fmg-quick-list nk-block">
-        <div class="card">
-            <div class="card-body">
-                @if(session()->has('gagal'))
-                <div class="alert alert-danger">
-                    <ul>
-                        <li>{!! \Session::get('gagal') !!}</li>
-                    </ul>
+        <div class="row">
+            <div class="col-sm-6">
+              <div class="card">
+                <div class="card-body">
+                  <h5 class="card-title">Ajukan Aduan</h5>
+                  <p class="card-text">Sampaikan laporan, kritik maupun saran perbaikan Anda dengan klik tombol dibawah ini.</p>
+                  <a href="{{ route('trx_generate.create') }}" class="btn btn-primary" onclick="buttondisable(this)"> <span>Tambah Aduan</span></a>
                 </div>
-            
-                @elseif(session()->has('success'))
-                <div class="alert alert-success">
-                    <ul>
-                        <li>{!! \Session::get('success') !!}</li>
-                    </ul>
-                </div>            
-                @endif
-                <div class="table-responsive">
-                    <table id="{{$table_id}}" class="small-table table " style="width:100%">
-                        <thead style="color:#526484; font-size:11px;" class="thead-light">
-                            <th width="1%">No.</th>
-                            <th width="10%">Nama</th>
-                            <th width="10%">Alamat</th>
-                            <th width="10%">Telepon</th>
-                            <th width="10%">Email</th>
-                            <th width="10%">Aksi</th>
-                        </thead>
-                        <tbody></tbody>
-                    </table>
-                </div>
+              </div>
             </div>
-        </div>
+            <div class="col-sm-6">
+              <div class="card">
+                <div class="card-body">
+                  <h5 class="card-title">Lihat Pegaduan</h5>
+                  <p class="card-text">Untuk dapat melihat aduan yang telah anda buat sebelumnya, silahkan masukkan nomor aduan Anda.</p>
+                  <a href="{{ route('user.aduan_responder.index') }}" class="btn btn-primary" onclick="buttondisable(this)"> <span>Cek Pengaduan</span></a>
+                </div>
+              </div>
+            </div>
+          </div>
     </div>
 <!-- </div> -->
 
 @endsection
-@push('script')
-<script>
-var table;
-$(document).ready(function() {
-    table = $('#{{$table_id}}').DataTable({
-        processing:true,
-        autoWidth: true,
-        ordering: true,
-        serverSide: true,
-        dom: '<"row justify-between g-2 "<"col-7 col-sm-4 text-left"f><"col-5 col-sm-8 text-right"<"datatable-filter"<"d-flex justify-content-end g-2" l>>>><" my-3"t><"row align-items-center"<"col-5 col-sm-12 col-md-6 text-left text-md-left"i><"col-5 col-sm-12 col-md-6 text-md-right"<"d-flex justify-content-end "p>>>',
-        ajax: {
-            url: '{{ route("master_pengaduan.grid") }}',
-            type:"POST",
-            data: function(params) {
-                params._token = "{{ csrf_token() }}";
-            }
-        },
-        columns: [
-            { data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false, searchable: false },         
-            {
-                data: 'nama',
-                name: 'nama',
-                orderable: true,
-                searchable: true,
-                class: 'text-left'
-            },
-            {
-                data: 'alamat',
-                name: 'alamat',
-                orderable: true,
-                searchable: true,
-                class: 'text-left'
-            },
-            {
-                data: 'telepon',
-                name: 'telepon',
-                orderable: true,
-                searchable: true,
-                class: 'text-left'
-            },
-            {
-                data: 'email',
-                name: 'email',
-                orderable: true,
-                searchable: true,
-                class: 'text-left'
-            },
-            {
-                data: 'aksi',
-                name: 'aksi',
-                orderable: false,
-                searchable: false,
-                class: 'text-center'
-            }
-        ],
-    });
-    
-    $('.dataTables_filter').html('<div><div class="input-group"><div class="input-group-prepend"><span class="input-group-text" id="basic-addon1"><em class="ti ti-search"></em></span></div><input type="search" class="form-control form-control-sm" placeholder="Type in to Search" aria-controls="tbtariflayanan"></div></div>');
-});
-
-
-function deleteData(id,name,elm){
-    buttonsmdisable(elm);
-    CustomSwal.fire({
-        icon:'question',
-        text: 'Hapus Data '+name+' ?',
-        showCancelButton: true,
-        confirmButtonText: 'Hapus',
-        cancelButtonText: 'Batal',
-    }).then((result) => {
-        /* Read more about isConfirmed, isDenied below */
-        if (result.isConfirmed) {
-            $.ajax({
-                url:"{{url('/admin/master_pengaduan')}}/"+id,
-                data:{
-                    _method:"DELETE",
-                    _token:"{{csrf_token()}}"
-                },
-                type:"POST",
-                dataType:"JSON",
-                beforeSend:function(){
-                    block("#{{$table_id}}");
-                },
-                success:function(data){
-                    if(data.success == 1){
-                        CustomSwal.fire('Sukses', data.msg, 'success');
-                    }else{
-                        CustomSwal.fire('Gagal', data.msg, 'error');
-                    }
-                    unblock("#{{$table_id}}");
-                    RefreshTable('{{$table_id}}',0);
-                },
-                error:function(error){
-                    CustomSwal.fire('Gagal', 'terjadi kesalahan sistem', 'error');
-                    console.log(error.XMLHttpRequest);
-                    unblock("#{{$table_id}}");
-                    RefreshTable('{{$table_id}}',0);
-                }
-            });
-        }else{
-            RefreshTable('{{$table_id}}',0);
-        }
-    });
-}
-
-</script>
-@endpush

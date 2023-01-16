@@ -20,8 +20,6 @@
             <a href="{{ route('master_pengaduan.index') }}" class="btn btn-sm btn-primary" onclick="buttondisable(this)"><em class="icon fas fa-arrow-left"></em> <span>Kembali</span></a>
         </div>
     </div>
-    <div class="nk-fmg-actions">
-    </div>
 </div>
 <div class="row gy-3 d-none" id="loaderspin">
     <div class="col-md-12">
@@ -57,38 +55,16 @@
     <div class="nk-fmg-quick-list nk-block">
         <div class="card">
             <div class="card-body">
-                @if(Session::has('success'))
+                <?php $message = Session::get('message'); ?>
+                @if($message)
                 <div class="alert alert-success" role="alert">
-                    {{ Session::get('success') }}
-                </div>
-                @elseif(Session::has('gagal'))
-                <div class="alert alert-danger" role="alert">
-                    {{ Session::get('gagal') }}
+                    {{ $message }}
                 </div>
                 @endif
-                <form action="{{route('user.aduan_responder.cek_aduan')}}" method="POST" enctype="multipart/form-data">              
-                    @csrf
-                    <div class="form-body">
-                        <div class="row">
-                            <div class="col-10">
-                                <input type="text" name="nomor_aduan" class="form-control @error('nomor_aduan') is invalid @enderror"
-                                placeholder="Masukkan Nomor Aduan">
-                                @error('nomor_aduan')
-                                <div class="invalid-feedback" style="display:block;">
-                                    {{  $message }}
-                                </div>
-                            @enderror
-                            </div>
-                            <div class="col-2">
-                                <button type="submit" class="btn btn-primary text-center" style="width:100%; text-align:center">Submit</button>
-                            </div>
-                        </div> 
-                    </div>
-                </form>
             </div>
         </div>
     </div>
 <!-- </div> -->
 
-@endsection
 
+@endsection

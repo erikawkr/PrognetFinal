@@ -14,8 +14,7 @@ class PengaduController extends Controller
     public function index(){
         $icon = 'ni ni-dashlite';
         $subtitle = 'Master Pengadu';
-        $table_id = 'm_help_pengadu';
-        return view('pages.admin.master_pengadu.grid',compact('subtitle','table_id','icon'));
+        return view('pages.admin.master_pengadu.grid',compact('subtitle','icon'));
     }
 
     public function grid(Request $request){

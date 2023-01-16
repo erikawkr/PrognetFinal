@@ -9,7 +9,7 @@
     <div class="nk-fmg-search">
         <!-- <em class="icon ni ni-search"></em> -->
         <!-- <input type="text" class="form-control border-transparent form-focus-none" placeholder="Search files, folders"> -->
-        <h4 class="card-title text-primary"><i class='{{$icon}}' data-toggle='tooltip' data-placement='bottom' title='{{$subtitle}}'></i>  {{strtoupper($subtitle)}}</h4>
+        <h4 class="card-title text-primary"><i class='{{$icon}}' data-toggle='tooltip' data-placement='bottom' title='{{$subtitle}}'></i>  {{strtoupper("Tambah Aduan")}}</h4>
     </div>
     <div class="nk-fmg-actions">
         <div class="btn-group">
@@ -60,7 +60,7 @@
                     {{ Session::get('success') }}
                 </div>
                 @endif
-                <form action="{{route('trx_generate.store')}}" method="POST" enctype="multipart/form-data">
+                <form name="frm_input" id="frm_input_srt" action="{{route('trx_generate.store')}}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="form-body">
                         <div class="row">
@@ -101,10 +101,10 @@
                                 </div>   
                             </div>
                         </div>
-                        <div class="form-group mt-2">
-                            <label for="inputAddress">Address</label>
-                            <textarea class="form-control @error('alamat') is invalid @enderror" 
-                            name="alamat"  id="inputAddress" placeholder="Masukkan Alamat"></textarea>
+                        <div class="form-group " style="margin-top: 15px;" >
+                            <label for="inputAddress" >Address</label>
+                            <input type="text" class="form-control @error('alamat') is invalid @enderror" 
+                            name="alamat"  id="inputAddress" placeholder="Masukkan Alamat">
                             @error('alamat')
                                     <div class="invalid-feedback" style="display:block;">
                                     {{ $message }}
@@ -138,7 +138,7 @@
                             <label for="exampleFormControlFile1">Aduan Foto</label>
                             <input type="file" class="form-control-file" id="gambar" name="gambar" required>
                         </div>  
-                        <button type="submit" class="btn btn-primary">Tambah</button>
+                        <button type="submit"  id="btn_submit" name="btn_submit" class="btn btn-primary">Kirim Aduan</button>
                     </div>
                 </form>
             </div>
@@ -147,4 +147,35 @@
 <!-- </div> -->
 
 @endsection
+@push('script')
+<script>
+    document.querySelector('#frm_input_srt').addEventListener('submit', function(e) {
+    var form = this;
+
+    e.preventDefault(); // <--- prevent form from submitting
+
+    swal({
+        title: "Apakah anda yakin ingin mengajukan aduan?",
+        icon: "warning",
+        buttons: [
+            'Tidak, batalkan!',
+            'Iya!'
+        ],
+        dangerMode: true,
+        }).then(function(isConfirm) {
+        if (isConfirm) {
+            swal({
+            title: 'Berhasil!',
+            text: 'Aduan berhasil disimpan!',
+            icon: 'success'
+            }).then(function() {
+            form.submit(); // <--- submit form programmatically
+            });
+        } else {
+            swal("Batal", "Aduan batal dikirimkan");
+        }
+        })
+    });
+</script>
+@endpush
 

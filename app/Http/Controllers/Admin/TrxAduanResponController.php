@@ -47,5 +47,8 @@ class TrxAduanResponController extends Controller
                 })
                 ->rawColumns(['aksi', 'respon'])
                 ->make(true);
-            }
+    
+    }
+    
+    
 }

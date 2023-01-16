@@ -22,7 +22,7 @@
                                 <li class="nk-menu-item">
                                     <a href="{{route('master_pengaduan.index')}}" class="nk-menu-link">
                                         <span class="nk-menu-icon"><em class="icon ni ni-dashlite"></em></span>
-                                        <span class="nk-menu-text">Pengadu</span>
+                                        <span class="nk-menu-text">Pengaduan</span>
                                     </a>
                                     <a href="{{route('master_respon.index')}}" class="nk-menu-link">
                                     <span class="nk-menu-icon"><em class="icon ni ni-dashlite"></em></span>
@@ -48,19 +48,7 @@
                                         <span class="nk-menu-text">Aduan Respon</span><!-- <span class="nk-menu-badge">HOT</span> -->
                                     </a>
                                 </li><!-- .nk-menu-item -->
-                                <li class="nk-menu-heading">
-                                    <h6 class="overline-title text-primary-alt">Transaksi User</h6>
-                                </li><!-- .nk-menu-item -->
-                                <li class="nk-menu-item">
-                                    <a href="{{route('trx_generate.create')}}" class="nk-menu-link">
-                                        <span class="nk-menu-icon"><em class="icon ni ni-building"></em></span>
-                                        <span class="nk-menu-text">Pengaduan Baru</span><!-- <span class="nk-menu-badge">HOT</span> -->
-                                    </a>
-                                    <a href="{{route('user.aduan_responder.index')}}" class="nk-menu-link">
-                                        <span class="nk-menu-icon"><em class="icon ni ni-building"></em></span>
-                                        <span class="nk-menu-text">Lihat Aduan</span><!-- <span class="nk-menu-badge">HOT</span> -->
-                                    </a>
-                                </li><!-- .nk-menu-item -->
+                            
                                 <li class="nk-menu-heading">
                                     <h6 class="overline-title text-primary-alt">Report</h6>
                                 </li><!-- .nk-menu-item -->

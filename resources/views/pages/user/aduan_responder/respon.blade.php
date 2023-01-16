@@ -17,7 +17,7 @@
             <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalDefault">Modal Default</button> -->
             <!-- <a href="#" class="btn btn-sm btn-success" data-toggle="modal" data-target="#modalDefault"><em class="icon ti-file"></em> <span>Filter Data</span></a> -->
             <!-- <a href="javascript:void(0)" class="btn btn-sm btn-success" onclick="filtershow()"><em class="icon ti-file"></em> <span>Filter Data</span></a> -->
-            <a href="{{ route('trx_aduan.index') }}" class="btn btn-sm btn-primary" onclick="buttondisable(this)"><em class="icon fas fa-arrow-left"></em> <span>Kembali</span></a>
+            <a href="{{ route('master_pengaduan.index') }}" class="btn btn-sm btn-primary" onclick="buttondisable(this)"><em class="icon fas fa-arrow-left"></em> <span>Kembali</span></a>
         </div>
     </div>
 </div>
@@ -60,12 +60,18 @@
                     {{ Session::get('success') }}
                 </div>
                 @endif
+                <form name="frm_input" id="frm_input_srt" action="{{ route('user.aduan_responder.store', $record->id) }}" method="POST">
+                    @csrf
                 <div class="form-group row " >
                     <div class="col-4"></div>
-                    <div class="col-8" >
+                    <div class="col-8 sender" >
                         <textarea class="summernote-disabled" name="aduan" disabled >{{ $record->aduan }}</textarea>
                     </div>
-                    <label class="col-12 text-right" style="margin-bottom:0px;">({{ $record->pengadu->nama }})</label>
+                    <style>
+                        .sender .note-editable { background-color: rgb(207, 210, 132) !important; color: white !important; }
+
+                    </style>
+                    <label class="col-12 text-right" style="margin-bottom:0px;">{{ $record->id }}-({{ $record->pengadu->nama }})</label>
                     <label class="col-12 text-right">{{ $record->created_at }}</label>
                 </div>
                 <div class="form-group row">
@@ -79,14 +85,17 @@
                 </div>
                 {{-- <button type="submit" class="btn btn-primary">Tambah</button> --}}
                 <br>
-
                 <br>
                 @foreach ($respons as $item)
                 @if (isset($item->pegawai_id))
                 <div class="form-group row " >
-                    <div class="col-8" >
+                    <div class="col-8 receiver" >
                         <textarea class="summernote-disabled" name="aduan" disabled >{{ $item->respon }}</textarea>
                     </div>
+                    <style>
+                        .receiver .note-editable { background-color: rgb(119, 189, 214) !important; color: white !important; }
+
+                    </style>
                     <div class="col-4"></div>
 
                     <label class="col-12 text-left" style="margin-bottom:0px;">{{ $item->pegawai->jenis_profesi->nama_profesi }} - ({{ $item->pegawai->nama }})</label>
@@ -95,12 +104,17 @@
                 @else
                 <div class="form-group row " >
                     <div class="col-4"></div>
-                    <div class="col-8" >
-                        <textarea class="summernote-disabled" name="aduan" disabled >{{ $record->respon }}</textarea>
+                    <div class="col-8 sender" >
+                        <textarea class="summernote-disabled" name="aduan" disabled >{{ $item->respon }}</textarea>
                     </div>
-                    <label class="col-12 text-right" style="margin-bottom:0px;">{{ $record->pengadu->nama }}</label>
+                    <style>
+                        .sender .note-editable { background-color: rgb(207, 210, 132) !important; color: white !important; }
+
+                    </style>
+                    <label class="col-12 text-right" style="margin-bottom:0px;">{{ $record->id }}-{{ $record->pengadu->nama }}</label>
                     <label class="col-12 text-right">{{ $record->created_at }}</label>
                 </div> 
+
                 @endif
                     
                 @endforeach
@@ -133,6 +147,35 @@
 @endsection
 
 
+{{-- ERika sdh selesai, bisa kamu cek sweet alertnya lagi. Ntar kalau sdh selesai kasih tau. aku mau masak energen --}}
 @push('script')
+<script>
+    document.querySelector('#frm_input_srt').addEventListener('submit', function(e) {
+    var form = this;
 
+    e.preventDefault(); // <--- prevent form from submitting
+
+    swal({
+        title: "Apakah anda yakin ingin mengirim aduan?",
+        icon: "warning",
+        buttons: [
+            'Tidak, batalkan!',
+            'Iya!'
+        ],
+        dangerMode: true,
+        }).then(function(isConfirm) {
+        if (isConfirm) {
+            swal({
+            title: 'Berhasil!',
+            text: 'Aduan berhasil dikirim!',
+            icon: 'success'
+            }).then(function() {
+            form.submit(); // <--- submit form programmatically
+            });
+        } else {
+            swal("Batal", "error");
+        }
+        })
+    });
+</script>
 @endpush

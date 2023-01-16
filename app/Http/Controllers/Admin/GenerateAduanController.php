@@ -23,6 +23,12 @@ class GenerateAduanController extends Controller
         return view('pages.user.generate_aduan.create',compact('subtitle','icon', 'jenis_aduans'));
     }
 
+    public function after_store(){
+        $icon = 'ni ni-dashlite';
+        $subtitle = 'Aduan Disimpan';
+        return view('pages.user.generate_aduan.alert',compact('subtitle','icon'));
+    }
+
     public function store(Request $request){
         $validated = $request->validate([
             'nama' => 'required',
@@ -52,7 +58,8 @@ class GenerateAduanController extends Controller
         $TrxAduan->aduan_foto = $request->gambar->getClientOriginalName();
         $TrxAduan->save();
         // MasterPengadu::create($data);
-        return redirect()->back()->with('success', 'Nomor Aduan Anda adalah ' . $id);
+        $message = 'Terimakasih aduan Anda sudah dikirim dengan nomor aduan adalah ' . $id ;
+        return redirect()->route('trx_generate.alert')->with(compact('message'));
         //return $request;
     }
 

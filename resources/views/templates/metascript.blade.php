@@ -23,6 +23,7 @@
 {{-- Ajaxsubmit --}}
 <script src="{{asset('vendor/jquery-validation/jquery.form.js')}}"></script>
 {{-- SweetAlert2 --}}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
 <script src="{{asset('vendor/sweetalert2/sweetalert2.min.js')}}"></script>
 
 {{-- Datepicker --}}
@@ -37,6 +38,8 @@
 <script src="https://code.highcharts.com/modules/export-data.js"></script>
 <script src="https://code.highcharts.com/modules/accessibility.js"></script>
 
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
 <script>
     $(document).ready(function() {
         $('.summernote').summernote({
@@ -50,5 +53,5 @@
             toolbar: false,
         });
     });
-     
+
 </script>

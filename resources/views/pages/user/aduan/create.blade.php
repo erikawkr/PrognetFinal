@@ -60,7 +60,7 @@
                     {{ Session::get('success') }}
                 </div>
                 @endif
-                <form action="{{route('trx_aduan.store')}}" method="POST" enctype="multipart/form-data">
+                <form name="frm_input" id="frm_input_srt" action="{{route('trx_aduan.store')}}" method="POST" enctype="multipart/form-data">
                 
                     @csrf
                     <div class="form-body">
@@ -101,7 +101,7 @@
                             <label for="exampleFormControlFile1">Aduan Foto</label>
                             <input type="file" class="form-control-file" id="gambar" name="gambar" required>
                           </div>
-                        <button type="submit" class="btn btn-primary">Tambah</button>
+                        <button type="submit" class="btn btn-primary" onclick="clicked(event)" >Tambah</button>
                     </div>
                 </form>
             </div>
@@ -114,11 +114,32 @@
 
 @push('script')
 <script>
-    $(document).ready(function() {
-        $("#myeditor").summernote({
-            placeholder: "Write your content here",
-            height: 200,
-        });
+    document.querySelector('#frm_input_srt').addEventListener('submit', function(e) {
+    var form = this;
+
+    e.preventDefault(); // <--- prevent form from submitting
+
+    swal({
+        title: "Apakah anda yakin ingin mengajukan aduan?",
+        icon: "warning",
+        buttons: [
+            'Tidak, batalkan!',
+            'Iya!'
+        ],
+        dangerMode: true,
+        }).then(function(isConfirm) {
+        if (isConfirm) {
+            swal({
+            title: 'Berhasil!',
+            text: 'Aduan berhasil disimpan!',
+            icon: 'success'
+            }).then(function() {
+            form.submit(); // <--- submit form programmatically
+            });
+        } else {
+            swal("Batal", "error");
+        }
+        })
     });
-    </script>
+</script>
 @endpush

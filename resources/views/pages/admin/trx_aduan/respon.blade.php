@@ -60,81 +60,58 @@
                     {{ Session::get('success') }}
                 </div>
                 @endif
-                <form action="{{ route('trx_aduan.store_respon', $record->id) }}" method="POST">
+                <form name="frm_input" id="frm_input_srt" action="{{ route('trx_aduan.store_respon', $record->id) }}" method="POST">
                     @csrf
                     <div class="form-body">
-                        <div class="form-group">
-                            <label>Nomor Aduan</label>
-                            <input type="text" name="pengadu_id" class="form-control @error('pengadu_id') is invalid @enderror"
-                                placeholder="Masukkan pengadu_id" value="{{ $record->id}}" disabled>
-                                @error('pengadu_id')
-                                    <div class="invalid-feedback" style="display:block;">
-                                        {{  $message }}
-                                    </div>
-                                @enderror
-                        </div>
-                        <div class="row">
-                            <div class="col-4">
-                                <div class="form-group">
-                                    <label>Nama Pengadu</label>
-                                    <input type="text" name="pengadu_id" class="form-control @error('pengadu_id') is invalid @enderror"
-                                        placeholder="Masukkan pengadu_id" value="{{ $record->pengadu->nama}}" disabled>
-                                </div>
-                            </div>
-                            <div class="col-4">
-                                <div class="form-group">
-                                    <label>Email Pengadu</label>
-                                    <input type="text" name="pengadu_id" class="form-control @error('pengadu_id') is invalid @enderror"
-                                        placeholder="Masukkan pengadu_id" value="{{ $record->pengadu->email}}" disabled>
-                                </div>
-                            </div>
-                            <div class="col-4">
-                                <div class="form-group">
-                                    <label>Jenis Aduan</label>
-                                    <input type="text" name="jenis_aduan_id" class="form-control @error('pengadu_id') is invalid @enderror"
-                                        placeholder="Masukkan pengadu_id" value="{{ $record->jenis_aduan->jenis_aduan}}" disabled>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label>Aduan</label>
-                            <textarea class="summernote-disabled" name="aduan" disabled >{{ $record->aduan }}</textarea>
-                            @error('aduan')
-                                <div class="invalid-feedback" style="display:block;">
-                                    {{  $message }}
-                                </div>
-                            @enderror
-                        </div>
                         <div class="form-group row">
-                            <label class="col-12" for="exampleFormControlFile1">Aduan Foto</label>
-                            <div class="col-12">
+                            <div class="col-8 receiver" >
+                            <textarea class="summernote-disabled" name="aduan" disabled >{{ $record->aduan }}</textarea>
+                        </div>
+                        <style>
+                            .receiver .note-editable { background-color: rgb(119, 189, 214) !important; color: white !important; }
+
+                        </style>
+                        <label class="col-12 text-left" style="margin-bottom:0px;">{{ $record->id }}-({{ $record->pengadu->nama }})</label>
+                        <label class="col-12 text-left">{{ $record->created_at }}</label>
+                        <div class="col-4"></div>
+                            <label class="col-12 text-left" for="exampleFormControlFile1">Aduan Foto</label>
+                            <div class="col-12 text-left">
                                 <a href="asset/aduan/{{ $record->aduan_foto }}" target="_blank">
                                     {{ $record->aduan_foto }}
                                     {{--  <img src="asset/aduan/{{ $record->aduan_foto }}" width='300px' height='300px'> --}}
                                 </a> 
                             </div>
+                            
                         </div>
                         {{-- <button type="submit" class="btn btn-primary">Tambah</button> --}}
                         <br>
-                        <hr>
                         <br>
+
                         @foreach ($respons as $item)
                         @if (isset($item->pegawai_id))
                         <div class="form-group row " >
                             <div class="col-4"></div>
-                            <div class="col-8" >
+                            <div class="col-8 sender" >
                                 <textarea class="summernote-disabled" name="aduan" disabled >{{ $item->respon }}</textarea>
                             </div>
+                            <style>
+                                .sender .note-editable { background-color: rgb(207, 210, 132) !important; color: white !important; }
+
+                            </style>
                             <label class="col-12 text-right" style="margin-bottom:0px;">{{ $item->pegawai->jenis_profesi->nama_profesi }} - ({{ $item->pegawai->nama }})</label>
                             <label class="col-12 text-right">{{ $item->created_at }}</label>
                         </div>  
                         @else
                         <div class="form-group row " >
-                            <div class="col-8" >
+                            <div class="col-8 receiver" >
                                 <textarea class="summernote-disabled" name="aduan" disabled >{{ $item->respon }}</textarea>
                             </div>
+                            <style>
+                                .receiver .note-editable { background-color: rgb(119, 189, 214) !important; color: white !important; }
+
+                            </style>
                             <div class="col-4"></div>
-                            <label class="col-12 text-left" style="margin-bottom:0px;">{{ $item->pengadu->nama }}</label>
+                            <label class="col-12 text-left" style="margin-bottom:0px;">{{ $record->id }}{{ $item->pengadu->nama }}</label>
                             <label class="col-12 text-left">{{ $item->created_at }}</label>
                         </div>  
                         @endif
@@ -182,5 +159,33 @@
 
 
 @push('script')
+<script>
+    document.querySelector('#frm_input_srt').addEventListener('submit', function(e) {
+    var form = this;
 
+    e.preventDefault(); // <--- prevent form from submitting
+
+    swal({
+        title: "Apakah anda yakin ingin mengajukan aduan?",
+        icon: "warning",
+        buttons: [
+            'Tidak, batalkan!',
+            'Iya!'
+        ],
+        dangerMode: true,
+        }).then(function(isConfirm) {
+        if (isConfirm) {
+            swal({
+            title: 'Berhasil!',
+            text: 'Aduan berhasil disimpan!',
+            icon: 'success'
+            }).then(function() {
+            form.submit(); // <--- submit form programmatically
+            });
+        } else {
+            swal("Batal", "error");
+        }
+        })
+    });
+</script>
 @endpush

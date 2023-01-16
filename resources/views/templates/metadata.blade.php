@@ -40,5 +40,8 @@
 
 <link href="{{asset('vendor/bmd/styles/styles.css')}}" rel="stylesheet">
 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css">
+
+
 {{-- summernote --}}
 
