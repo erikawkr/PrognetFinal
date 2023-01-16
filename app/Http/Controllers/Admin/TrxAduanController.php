@@ -44,7 +44,10 @@ class TrxAduanController extends Controller
                     return "<span class='badge badge-primary mt-1' >" . str_word_count(strip_tags($data->aduan)) . " Words</span> ";
                 })
                 ->addColumn('status_close', function($data){
-                    if($data->status_close == 0){
+                    $responed = TrxAduanRespon::where('aduan_id', '=', $data->id)->latest('created_at')->first();
+                    if(!empty($responed->pengadu_id)){
+                        return "New Respon";
+                    }elseif($data->status_close == 0){
                         return "Aktif";
                     }else{
                         return "Non-Aktif";
